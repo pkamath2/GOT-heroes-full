@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>GOT Heroes!</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"  integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="  crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(
+            function(){
+                $.get({
+                    url: '/wwcode/GOT/heroes',
+                    method: 'GET',
+                    success: function(msg){
+                        var innerHtml = '';
+                        msg.forEach(function(each){
+                            innerHtml = innerHtml +
+                                '<tr><td align="center"><img width="40" height="70" src="'+each['hero-image-url']+'"/></td>' +
+                                '<td>'+each['hero-name']+'</td>' +
+                                '<td>'+each['hero-title']+'</td>' +
+                                '<td>'+each['hero-allegiance']+'</td></tr>'
+                        });
+                        $("#hero-body").append(innerHtml);
+                    }
+                });
+            }
+        )
+
+        var logout = function(){
+            document.getElementById("logoutForm").submit();
+            //window.location.href = "/heros.html";
+        }
+
+    </script>
+</head>
+<body>
+<div class="container">
+<div class="row">
+    <div class="col-2">&nbsp;</div>
+    <div class="col-8" align="center">
+       <h1>GOT Heroes</h1>
+    </div>
+    <div class="col-2" align="right"><a href="#" onclick="javascript:logout()">logout</a></div>
+</div>
+</div>
+<div class="row">
+<div class="col-2">&nbsp;</div>
+<div class="col-8">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">Name</th>
+                <th scope="col">Title</th>
+                <th scope="col">House Allegiance</th>
+            </tr>
+        </thead>
+        <tbody id="hero-body"></tbody>
+    </table>
+</div>
+<div class="col-2">&nbsp;</div>
+</div>
+</div>
+
+<form id="logoutForm" style="visibility:hidden" action="/wwcode/logout" method="post"></form>
+</body>
+</html>
