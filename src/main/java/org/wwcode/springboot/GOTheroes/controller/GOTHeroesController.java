@@ -2,6 +2,7 @@ package org.wwcode.springboot.GOTheroes.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
@@ -33,7 +34,7 @@ public class GOTHeroesController {
 
         System.out.println("Some Prop ->"+this.someProp);
         System.out.println("Some other props from file -> "+this.props.getProperty("got.some-other-prop"));
-        System.out.println(user.getUsername());
+        System.out.println("Logged in User -> " + user.getUsername());
         //heroes = gotService.getAllHeros();-- Using JDBC Template
         heroes = gotService.getAllherosJPA();
 
@@ -80,6 +81,12 @@ public class GOTHeroesController {
         }
 
         return heroes;
+    }
+
+    @Secured("ROLE_ADMIN")
+    @RequestMapping(path="/add", method={RequestMethod.GET,RequestMethod.POST})
+    public void addHero(){
+        System.out.println("You can access this method since you have the ADMIN role.");
     }
 
 }
