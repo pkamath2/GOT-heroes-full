@@ -38,6 +38,7 @@ public class GOTService {
 
             }
         });
+
         return heroes;
     }
 
