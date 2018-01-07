@@ -27,20 +27,9 @@ public class GOTSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.authorizeRequests().anyRequest().authenticated();
-        http.httpBasic();
-        http.formLogin();
+        super.configure(http);
         http.logout().logoutSuccessUrl("/heros.html").invalidateHttpSession(true);
         http.csrf().disable();
         http.headers().frameOptions().sameOrigin();
-
-//
-//        http.authorizeRequests().anyRequest()
-//                .authenticated().and()
-//                .formLogin().and()
-//                .httpBasic().and()
-//                .logout().logoutSuccessUrl("/heros.html").invalidateHttpSession(true).and()
-//                .csrf().disable()
-//                .headers().frameOptions().sameOrigin();
     }
 }
